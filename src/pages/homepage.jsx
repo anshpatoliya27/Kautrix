@@ -1,25 +1,19 @@
-import "./homepage.css";
-import Navbar from "../components/Navbar";
+import React from 'react';
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero';
+import Features from '../components/Features';
+import CTA from '../components/CTA';
+import Footer from '../components/Footer';
+import './homepage.css';
 
-function Homepage() {
+export default function Homepage() {
   return (
-    <div className="home">
-
+    <div className="homepage">
       <Navbar />
-
-      <section className="hero">
-        <h1>Financial Intelligence Powered by AI</h1>
-
-        <p>
-          Kautrix analyzes real-time market news and sentiment to deliver
-          powerful insights.
-        </p>
-
-        <button className="cta-btn">Get Started</button>
-      </section>
-
+      <Hero />
+      <Features />
+      <CTA />
+      <Footer />
     </div>
   );
 }
-
-export default Homepage;
