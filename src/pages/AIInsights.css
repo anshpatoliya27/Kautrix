@@ -1,159 +1,201 @@
-.ai-insights-grid {
+.insights-macro-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+    gap: 32px;
+    margin-top: 32px;
+}
+
+.insights-left-col {
+    grid-column: span 8;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.insights-right-col {
+    grid-column: span 4;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+/* Insight Node */
+.insight-node {
+    padding: 32px;
+    background: linear-gradient(145deg, rgba(30, 30, 30, 0.4) 0%, rgba(10, 10, 10, 0.8) 100%);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    display: flex;
+    flex-direction: column;
     gap: 24px;
+    position: relative;
+    overflow: hidden;
 }
 
-.recommendations-section {
-    grid-column: span 12;
-    margin-bottom: 20px;
+.node-glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 60%;
+    height: 100px;
+    background: radial-gradient(ellipse at top, var(--accent-ai-bg) 0%, transparent 70%);
+    transform: translateX(-50%);
+    pointer-events: none;
 }
 
-.insights-card {
-    padding: 24px;
+.insight-node.node-profit .node-glow {
+    background: radial-gradient(ellipse at top, var(--accent-profit-bg) 0%, transparent 70%);
 }
 
-.insights-card-header {
+.insight-node.node-loss .node-glow {
+    background: radial-gradient(ellipse at top, var(--accent-loss-bg) 0%, transparent 70%);
+}
+
+.in-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 1;
+}
+
+.stock-identity {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
+    gap: 16px;
 }
 
-.insights-icon-wrapper {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-md);
-    background: var(--accent-blue-bg);
-    color: var(--accent-blue);
+.stock-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-strong);
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.insights-title-group h2 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-.insights-title-group p {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-}
-
-/* Insight Items */
-.insight-item {
-    background: var(--bg-tertiary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 20px;
-    margin-bottom: 16px;
-    transition: all var(--transition-fast);
-}
-
-.insight-item:hover {
-    border-color: var(--border-light);
-    box-shadow: var(--shadow-md);
-}
-
-.insight-item-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-}
-
-.stock-id {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.stock-symbol {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--text-primary);
 }
 
-.signal-badge {
-    padding: 4px 10px;
-    border-radius: 4px;
+.stock-ticker {
+    font-size: 1.75rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.conviction-meter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.conviction-label {
     font-size: 0.75rem;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.conviction-score {
+    font-size: 2.5rem;
     font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1;
+}
+
+.in-body {
+    background: var(--bg-deep);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    border: 1px solid var(--border-subtle);
+    position: relative;
+    z-index: 1;
+}
+
+.in-reasoning-title {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-}
-
-.signal-badge.buy {
-    background: var(--accent-green-bg);
-    color: var(--accent-green);
-    border: 1px solid rgba(34, 197, 94, 0.2);
-}
-
-.signal-badge.sell {
-    background: var(--accent-red-bg);
-    color: var(--accent-red);
-    border: 1px solid rgba(239, 68, 68, 0.2);
-}
-
-.confidence-score {
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.score-circle {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.875rem;
+.in-reasoning-text {
+    font-size: 1rem;
+    color: var(--text-primary);
+    line-height: 1.6;
 }
 
-.score-circle.high {
-    border: 2px solid var(--accent-green);
-    color: var(--accent-green);
-}
-
-.score-circle.medium {
-    border: 2px solid var(--accent-blue);
-    color: var(--accent-blue);
-}
-
-.reasoning-box {
-    background: rgba(255, 255, 255, 0.03);
-    padding: 16px;
-    border-radius: var(--radius-sm);
-    display: flex;
-    gap: 12px;
-}
-
-.reasoning-icon {
-    color: var(--accent-blue);
-    flex-shrink: 0;
-}
-
-.reasoning-content {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-}
-
-.data-points {
-    display: flex;
+.in-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
-    margin-top: 12px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px dashed var(--border-subtle);
 }
 
-.data-tag {
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    padding: 4px 8px;
-    border-radius: 4px;
+.metric-box {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.metric-label {
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: var(--text-tertiary);
+}
+
+.metric-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+}
+
+/* Factor Panel */
+.factor-panel {
+    padding: 24px;
+}
+
+.factor-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.factor-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.factor-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.factor-name {
+    font-size: 0.9375rem;
+    font-weight: 500;
+}
+
+.factor-bar-bg {
+    width: 120px;
+    height: 6px;
+    background: var(--bg-deep);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.factor-bar-fill {
+    height: 100%;
+    border-radius: 3px;
 }
