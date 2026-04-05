@@ -1,63 +1,62 @@
 import React from 'react';
-import { Bell, AlertTriangle, TrendingUp, TrendingDown, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { BellRing, ShieldAlert, Zap, Siren } from 'lucide-react';
 import './shared.css';
 
 const Alerts = () => {
-    const alertsData = [
-        { type: 'price_up', title: 'TCS Target Hit', message: 'TCS has crossed your target price of ₹4,100.', time: '10 mins ago', icon: <TrendingUp size={20} className="text-profit" /> },
-        { type: 'news', title: 'High Impact News - Banking Sector', message: 'RBI announces new liquidity measures. Impact highly probable on HDFCBANK, ICICIBANK.', time: '45 mins ago', icon: <Bell size={20} className="text-accent-blue" /> },
-        { type: 'price_down', title: 'Stop Loss Warning - INFY', message: 'INFY is trading within 1% of your set stop loss (₹1,650).', time: '2 hours ago', icon: <AlertTriangle size={20} className="text-loss" /> },
-    ];
-
     return (
-        <div className="page-wrapper">
-            <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="page-content-inner">
+            <div className="section-header">
                 <div>
-                    <h1 className="page-title">Smart Alerts</h1>
-                    <p style={{ color: 'var(--text-secondary)', marginTop: '8px' }}>
-                        Manage your price, volume, and AI news alerts.
-                    </p>
+                    <h1 className="section-title"><BellRing className="text-ai" size={28} /> System Alerts</h1>
+                    <p className="section-subtitle">Critical event triggers, automated defense, and execution notifications.</p>
                 </div>
-                <button className="btn-primary">Create Alert</button>
             </div>
 
-            <div className="glass-panel" style={{ padding: '0', overflow: 'hidden' }}>
-                {alertsData.map((alert, i) => (
-                    <div key={i} style={{
-                        display: 'flex',
-                        gap: '16px',
-                        padding: '24px',
-                        borderBottom: '1px solid var(--border-color)',
-                        background: 'var(--bg-tertiary)',
-                        transition: 'all 0.2s ease',
-                        cursor: 'pointer'
-                    }}
-                        onMouseOver={(e) => e.currentTarget.style.background = 'var(--bg-card)'}
-                        onMouseOut={(e) => e.currentTarget.style.background = 'var(--bg-tertiary)'}
-                    >
-                        <div style={{
-                            width: '48px',
-                            height: '48px',
-                            borderRadius: '50%',
-                            background: 'var(--bg-primary)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            flexShrink: 0
-                        }}>
-                            {alert.icon}
-                        </div>
-                        <div style={{ flex: 1 }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                                <h3 style={{ fontSize: '1.05rem', fontWeight: 600 }}>{alert.title}</h3>
-                                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                    <Clock size={12} /> {alert.time}
-                                </div>
-                            </div>
-                            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem' }}>{alert.message}</p>
-                        </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '32px' }}>
+
+                <motion.div className="glass-panel" style={{ padding: '24px', display: 'flex', gap: '24px', alignItems: 'center', borderLeft: '4px solid var(--rose-500)' }} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
+                    <div style={{ width: '48px', height: '48px', background: 'rgba(244, 63, 94, 0.1)', color: 'var(--rose-500)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <Siren size={24} />
                     </div>
-                ))}
+                    <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                            <h3 style={{ fontSize: '1.125rem', color: 'var(--text-primary)' }}>Stop Loss Breach: INFY</h3>
+                            <span className="mono" style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>14:32:05 IST</span>
+                        </div>
+                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem' }}>Automated risk protocol liquidated 300 shares of INFY at 1,650.00. Exposure eliminated to prevent further drawdown.</p>
+                    </div>
+                    <button className="btn btn-surface">Review Log</button>
+                </motion.div>
+
+                <motion.div className="glass-panel" style={{ padding: '24px', display: 'flex', gap: '24px', alignItems: 'center', borderLeft: '4px solid var(--emerald-500)' }} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>
+                    <div style={{ width: '48px', height: '48px', background: 'rgba(16, 185, 129, 0.1)', color: 'var(--emerald-500)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <Zap size={24} />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                            <h3 style={{ fontSize: '1.125rem', color: 'var(--text-primary)' }}>Auto-Trade Executed: HDFCBANK</h3>
+                            <span className="mono" style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>10:15:22 IST</span>
+                        </div>
+                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem' }}>AI successfully executed Mean-Reversion strategy parameters. Long position acquired at 1,430.</p>
+                    </div>
+                    <button className="btn btn-surface">Trade Details</button>
+                </motion.div>
+
+                <motion.div className="glass-panel" style={{ padding: '24px', display: 'flex', gap: '24px', alignItems: 'center', borderLeft: '4px solid var(--purple-500)' }} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+                    <div style={{ width: '48px', height: '48px', background: 'rgba(139, 92, 246, 0.1)', color: 'var(--purple-500)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <ShieldAlert size={24} />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                            <h3 style={{ fontSize: '1.125rem', color: 'var(--text-primary)' }}>System Routine: Pre-Market Analysis Complete</h3>
+                            <span className="mono" style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>08:50:00 IST</span>
+                        </div>
+                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem' }}>Engine computed all pre-market macroeconomic variables and generated 4 new high-conviction signals.</p>
+                    </div>
+                    <button className="btn btn-surface">View Signals</button>
+                </motion.div>
+
             </div>
         </div>
     );
