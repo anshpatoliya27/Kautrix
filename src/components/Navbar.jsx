@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Bell, Settings } from 'lucide-react';
+import { Search, Bell, Settings, Radio } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -10,20 +10,20 @@ const Navbar = () => {
         <input
           type="text"
           className="search-input"
-          placeholder="Search stocks, news, or ask AI..."
+          placeholder="Global System Search (Assets, News, Macros)..."
         />
-        <span className="search-shortcut">Ctrl+K</span>
+        <span className="search-shortcut">CMD+K</span>
       </div>
 
       <div className="navbar-actions">
-        <div className="market-status">
-          <span className="status-dot"></span>
-          <span className="text-profit">Market Open</span>
+        <div className="network-status">
+          <span className="status-dot animated-pulse"></span>
+          <span style={{ color: 'var(--text-primary)' }}>NSE:</span> Syncing <Radio size={12} style={{ marginLeft: 4 }} />
         </div>
 
         <button className="action-btn">
           <Bell size={20} />
-          <span className="badge"></span>
+          <span className="badge-notify animated-pulse"></span>
         </button>
 
         <button className="action-btn">
