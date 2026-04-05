@@ -3,26 +3,32 @@ import { NavLink } from 'react-router-dom';
 import {
     LayoutDashboard,
     Newspaper,
-    Lightbulb,
-    LineChart,
-    List,
-    Image as ImageIcon,
-    MessageSquare,
-    Bell,
-    Activity
+    Fingerprint,
+    Search,
+    Star,
+    ScanLine,
+    MessageSquareCode,
+    BellRing,
+    Infinity
 } from 'lucide-react';
 import './Sidebar.css';
 
 const Sidebar = () => {
-    const navItems = [
-        { name: 'Dashboard', path: '/dashboard', icon: <LayoutDashboard size={20} /> },
-        { name: 'News Intelligence', path: '/news', icon: <Newspaper size={20} /> },
-        { name: 'AI Insights', path: '/insights', icon: <Lightbulb size={20} /> },
-        { name: 'Stocks', path: '/stocks', icon: <LineChart size={20} /> },
-        { name: 'Watchlist', path: '/watchlist', icon: <List size={20} /> },
-        { name: 'Chart Analyzer', path: '/chart-analyzer', icon: <ImageIcon size={20} /> },
-        { name: 'AI Chat', path: '/chat', icon: <MessageSquare size={20} /> },
-        { name: 'Alerts', path: '/alerts', icon: <Bell size={20} /> },
+    const mainNav = [
+        { name: 'Command Center', path: '/dashboard', icon: <LayoutDashboard size={20} /> },
+        { name: 'Global Intel', path: '/news', icon: <Newspaper size={20} /> },
+        { name: 'Predictive Models', path: '/insights', icon: <Fingerprint size={20} /> },
+    ];
+
+    const toolsNav = [
+        { name: 'Asset Explorer', path: '/stocks', icon: <Search size={20} /> },
+        { name: 'Core Watchlist', path: '/watchlist', icon: <Star size={20} /> },
+        { name: 'Vision Analyzer', path: '/chart-analyzer', icon: <ScanLine size={20} /> },
+    ];
+
+    const systemNav = [
+        { name: 'Copilot Terminal', path: '/chat', icon: <MessageSquareCode size={20} /> },
+        { name: 'System Alerts', path: '/alerts', icon: <BellRing size={20} /> },
     ];
 
     return (
@@ -30,14 +36,39 @@ const Sidebar = () => {
             <div className="sidebar-header">
                 <div className="brand">
                     <div className="brand-icon">
-                        <Activity size={24} />
+                        <Infinity size={24} color="#fff" />
                     </div>
-                    <span className="brand-name">Kautrix</span>
+                    <span className="brand-name">KAUTRIX</span>
                 </div>
             </div>
 
             <nav className="sidebar-nav">
-                {navItems.map((item) => (
+                <div className="nav-label">Core System</div>
+                {mainNav.map((item) => (
+                    <NavLink
+                        to={item.path}
+                        key={item.name}
+                        className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+                    >
+                        {item.icon}
+                        <span>{item.name}</span>
+                    </NavLink>
+                ))}
+
+                <div className="nav-label" style={{ marginTop: '24px' }}>Analysis Tools</div>
+                {toolsNav.map((item) => (
+                    <NavLink
+                        to={item.path}
+                        key={item.name}
+                        className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+                    >
+                        {item.icon}
+                        <span>{item.name}</span>
+                    </NavLink>
+                ))}
+
+                <div className="nav-label" style={{ marginTop: '24px' }}>Network Services</div>
+                {systemNav.map((item) => (
                     <NavLink
                         to={item.path}
                         key={item.name}
@@ -50,13 +81,13 @@ const Sidebar = () => {
             </nav>
 
             <div className="sidebar-footer">
-                <div className="user-profile">
+                <NavLink to="/profile" className="user-profile" style={{ textDecoration: 'none' }}>
                     <div className="avatar">K</div>
                     <div className="user-info">
                         <span className="user-name">Khushi</span>
-                        <span className="user-plan">PRO Member</span>
+                        <span className="user-plan">ENTERPRISE NODE</span>
                     </div>
-                </div>
+                </NavLink>
             </div>
         </aside>
     );
