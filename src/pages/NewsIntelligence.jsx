@@ -1,133 +1,127 @@
 import React from 'react';
-import { Sparkles, TrendingUp, TrendingDown, Clock, Activity } from 'lucide-react';
+import { Sparkles, TrendingUp, TrendingDown, Clock, MoveRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './NewsIntelligence.css';
 
 const newsData = [
     {
         id: 1,
-        headline: "RBI increases repo rate by 25 basis points to combat inflation",
-        time: "10 mins ago",
-        summary: "The Reserve Bank of India has hiked the benchmark lending rate. This will likely increase borrowing costs for businesses and consumers, negatively impacting rate-sensitive sectors like Real Estate and Auto, but potentially benefiting Bank net interest margins.",
-        sentiment: "mixed",
-        sentimentScore: 45, // 0-100 (0 red, 100 green)
+        headline: "Global Central Banks Pivot: Coordinated Rate Cuts Expected By Q3",
+        time: "2 mins ago",
+        summary: "Macro algorithms detect massive shifts in bond yields indicating an imminent coordinated policy pivot by major central banks. The AI model predicts a powerful multi-week rally in risk assets.",
+        sentiment: "positive",
+        sentimentScore: 92,
         impact: [
-            { sector: "Banking", trend: "up", change: "+1.2%" },
-            { sector: "Realty", trend: "down", change: "-2.4%" },
-            { sector: "Auto", trend: "down", change: "-1.5%" }
-        ]
+            { sector: "IT Services", trend: "up", change: "+3.2%" },
+            { sector: "Banking", trend: "up", change: "+2.4%" },
+        ],
+        hot: true
     },
     {
         id: 2,
-        headline: "Government announces ₹1 lakh crore push for renewable energy",
-        time: "1 hour ago",
-        summary: "New subsidies announced for solar and wind power manufacturing facilities. AI predicts strong positive momentum for green energy stocks and power transmission companies over the next quarter.",
-        sentiment: "positive",
-        sentimentScore: 85,
+        headline: "Automotive Sector Posts Record Sales Despite Supply Chain Jitters",
+        time: "15 mins ago",
+        summary: "Domestic auto sales beat consensus estimates by 12%. However, AI textual analysis of management commentary highlights forward-looking margin pressure due to raw material costs.",
+        sentiment: "mixed",
+        sentimentScore: 55,
         impact: [
-            { sector: "Green Energy", trend: "up", change: "+4.5%" },
-            { sector: "Power", trend: "up", change: "+3.2%" }
-        ]
+            { sector: "Auto OEMs", trend: "up", change: "+1.5%" },
+            { sector: "Auto Ancillary", trend: "down", change: "-0.8%" }
+        ],
+        hot: false
     },
     {
         id: 3,
-        headline: "TCS reports Q3 earnings above street estimates, guidance strong",
-        time: "2 hours ago",
-        summary: "India's largest IT firm beat revenue and margin expectations, showing resilience despite global macroeconomic headwinds. Management commentary suggests strong deal pipeline.",
-        sentiment: "positive",
-        sentimentScore: 78,
-        impact: [
-            { sector: "IT Services", trend: "up", change: "+2.8%" }
-        ]
-    },
-    {
-        id: 4,
-        headline: "Crude oil prices spike 5% on Middle East tensions",
-        time: "3 hours ago",
-        summary: "Brent crude crosses $85/barrel. This will likely pressure margins for oil marketing companies, paints, and aviation, while upstream oil producers may see benefits.",
+        headline: "European Regulator Fines Major Pharma Conglomerate",
+        time: "1 hour ago",
+        summary: "A surprise regulatory action in the EU zone disrupts export pipelines for key active pharmaceutical ingredients (APIs). High probability of structural correction in affected tickers.",
         sentiment: "negative",
-        sentimentScore: 25,
+        sentimentScore: 18,
         impact: [
-            { sector: "Aviation", trend: "down", change: "-3.1%" },
-            { sector: "Paints", trend: "down", change: "-2.2%" },
-            { sector: "OMCs", trend: "down", change: "-1.8%" }
-        ]
+            { sector: "Pharma", trend: "down", change: "-4.1%" }
+        ],
+        hot: true
     }
 ];
 
-const NewsCard = ({ news }) => {
+const NewsCard = ({ news, index }) => {
     return (
-        <div className="news-card glass-panel">
-            <div className="news-header">
-                <h3 className="news-headline">{news.headline}</h3>
-                <div className="news-time">
-                    <Clock size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: '-1px' }} />
-                    {news.time}
-                </div>
+        <motion.div
+            className="glass-panel news-card-v2"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: index * 0.1, duration: 0.3 }}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+        >
+            <div className="nc-top-row">
+                <div className="nc-time"><Clock size={12} /> {news.time}</div>
+                {news.hot && <div className="badge badge-loss animated-pulse">HOT</div>}
             </div>
 
-            <div className="news-ai-summary">
-                <div className="ai-summary-label">
-                    <Sparkles size={14} />
-                    AI Analysis
+            <h3 className="nc-headline">{news.headline}</h3>
+
+            <div className="nc-ai-box">
+                <div className="nc-ai-header">
+                    <Sparkles size={14} className="text-ai" />
+                    <span className="text-gradient-ai font-semibold">AI Synthesis</span>
                 </div>
-                <p className="ai-summary-text">{news.summary}</p>
+                <p className="nc-ai-text">{news.summary}</p>
             </div>
 
-            <div className="news-impact">
-                <div className="impact-title">Predicted Market Impact</div>
-                <div className="impact-sectors">
+            <div className="nc-impact-section">
+                <div className="nc-section-title">Vector Impact</div>
+                <div className="nc-tags">
                     {news.impact.map((item, idx) => (
-                        <div key={idx} className={`sector-tag ${item.trend === 'up' ? 'positive' : 'negative'}`}>
-                            {item.trend === 'up' ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
+                        <div key={idx} className={`badge ${item.trend === 'up' ? 'badge-profit' : 'badge-loss'}`}>
+                            {item.trend === 'up' ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
                             {item.sector} {item.change}
                         </div>
                     ))}
                 </div>
             </div>
 
-            <div className="news-sentiment">
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>BEARISH</span>
-                <div className="sentiment-meter">
-                    <div
-                        className="sentiment-fill"
-                        style={{
-                            width: `${news.sentimentScore}%`,
-                            background: `linear-gradient(90deg, var(--accent-red), ${news.sentimentScore > 50 ? 'var(--accent-green)' : 'var(--text-muted)'})`
-                        }}
-                    ></div>
+            <div className="nc-footer">
+                <div className="sentiment-bar-wrapper">
+                    <div className="sb-label">Model Sentiment Analysis</div>
+                    <div className="sb-track">
+                        <motion.div
+                            className="sb-fill"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${news.sentimentScore}%` }}
+                            transition={{ delay: 0.5 + (index * 0.1), duration: 1, ease: "easeOut" }}
+                            style={{
+                                background: `linear-gradient(90deg, var(--rose-500), ${news.sentimentScore > 50 ? 'var(--emerald-500)' : 'var(--amber-500)'})`
+                            }}
+                        />
+                    </div>
                 </div>
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>BULLISH</span>
+                <button className="btn-icon"><MoveRight size={20} /></button>
             </div>
-        </div>
+        </motion.div>
     );
 };
 
 const NewsIntelligence = () => {
     return (
-        <>
-            <div className="page-header">
-                <h1 className="page-title">News Intelligence</h1>
-                <p style={{ color: 'var(--text-secondary)', marginTop: '8px' }}>
-                    Real-time AI analysis of market news and predicted impact.
-                </p>
-            </div>
-
-            <div className="news-container">
-                <div className="news-filters">
-                    <button className="news-filter-btn active">All News</button>
-                    <button className="news-filter-btn">High Impact</button>
-                    <button className="news-filter-btn">Earnings</button>
-                    <button className="news-filter-btn">Macroeconomics</button>
-                    <button className="news-filter-btn">Global</button>
+        <div className="page-content-inner">
+            <div className="section-header">
+                <div>
+                    <h1 className="section-title">Global Intelligence <span className="badge badge-ai">LIVE</span></h1>
+                    <p className="section-subtitle">Real-time NLP extraction and predictive market vectors</p>
                 </div>
-
-                <div className="news-grid">
-                    {newsData.map(news => (
-                        <NewsCard key={news.id} news={news} />
-                    ))}
+                <div className="filter-group">
+                    <button className="filter-btn active">All Streams</button>
+                    <button className="filter-btn">High Volatility</button>
+                    <button className="filter-btn">Earnings Transcripts</button>
                 </div>
             </div>
-        </>
+
+            <div className="news-masonry">
+                {newsData.map((news, i) => (
+                    <NewsCard key={news.id} news={news} index={i} />
+                ))}
+            </div>
+        </div>
     );
 };
 
